@@ -28,27 +28,26 @@ const DataGrid: React.FC<DataGridProps> = ({ columns, data }) => {
   const paginatedRows = rows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
   const [filterMenuOpen, setFilterMenuOpen] = useState(false);
 
-  // Toggle column visibility
   const toggleColumnVisibility = (key: string) => {
     setVisibleColumns((prev) =>
       prev.map((col) => (col.key === key ? { ...col, visible: !col.visible } : col))
     );
   };
 
-  // Resize column
+
   const handleColumnResize = (key: string, newWidth: number) => {
     setVisibleColumns((prev) =>
       prev.map((col) => (col.key === key ? { ...col, width: Math.max(newWidth, 50) } : col))
     );
   };
 
-  // Start editing a cell
+
   const startEditing = (rowIndex: number, colKey: string, value: any) => {
     setEditingCell({ row: rowIndex, col: colKey });
     setTempValue(value);
   };
 
-  // Save edited value
+
   const saveEdit = () => {
     if (editingCell) {
       const { row, col } = editingCell;
@@ -60,14 +59,14 @@ const DataGrid: React.FC<DataGridProps> = ({ columns, data }) => {
   };
 
 
-    // Toggle filter menu
+
     const toggleFilterMenu = () => {
         setFilterMenuOpen((prev) => !prev);
       };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh", padding: "10px" }}>
-      {/* Column Filter */}
+
       <div style={{ marginBottom: "10px", position: "relative" }}>
         <button
             onClick={toggleFilterMenu}
@@ -127,7 +126,7 @@ const DataGrid: React.FC<DataGridProps> = ({ columns, data }) => {
         </div>
       </div>
 
-      {/* Data Grid */}
+   
       <div
         style={{
           overflowY: "auto",
@@ -136,7 +135,7 @@ const DataGrid: React.FC<DataGridProps> = ({ columns, data }) => {
           position: "relative",
         }}
       >
-        {/* Header */}
+
         <div style={{ display: "flex", position: "sticky", top: 0, background: "#fff" }}>
           {visibleColumns.filter((col) => col.visible).map((col) => (
             <div
@@ -154,7 +153,7 @@ const DataGrid: React.FC<DataGridProps> = ({ columns, data }) => {
               }}
             >
               {col.label}
-              {/* Resize Handle */}
+         
               <span
                 style={{
                   position: "absolute",
@@ -183,7 +182,7 @@ const DataGrid: React.FC<DataGridProps> = ({ columns, data }) => {
           ))}
         </div>
 
-        {/* Rows */}
+
         {paginatedRows.map((row, rowIndex) => (
           <div
             key={rowIndex}
@@ -224,7 +223,7 @@ const DataGrid: React.FC<DataGridProps> = ({ columns, data }) => {
         ))}
       </div>
 
-      {/* Pagination */}
+     
       <div style={{ marginTop: "10px", display: "flex", justifyContent: "center", gap: "10px" }}>
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
